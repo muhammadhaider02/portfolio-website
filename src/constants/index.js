@@ -275,6 +275,7 @@ const testimonials = [
     designation: "Founder",
     company: "DMLytics",
     image: testimonial1,
+    linkedin: "https://www.linkedin.com/in/mahnoor-t-661435221/",
   },
   {
     testimonial:
@@ -283,6 +284,7 @@ const testimonials = [
     designation: "Product Manager",
     company: "Frack Technologies",
     image: testimonial2,
+    linkedin: "https://www.linkedin.com/in/taimur111/",
   },
   {
     testimonial:
@@ -291,6 +293,7 @@ const testimonials = [
     designation: "Project Manager",
     company: "H3 Solution - Prime HRMS",
     image: testimonial3,
+    linkedin: "https://www.linkedin.com/in/sheikh-haad-ali-2814a8181/",
   },
 ];
 

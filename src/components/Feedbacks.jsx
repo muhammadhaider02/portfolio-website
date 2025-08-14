@@ -9,7 +9,7 @@ import { testimonials } from "../constants";
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-const FeedbackCard = ({ index, testimonial, name, designation, company, image }) => {
+const FeedbackCard = ({ index, testimonial, name, designation, company, image, linkedin }) => {
   // Use a `ref` to apply GSAP animations
   const cardRef = React.useRef(null);
 
@@ -50,7 +50,15 @@ const FeedbackCard = ({ index, testimonial, name, designation, company, image })
         <div className="mt-7 flex justify-between items-center gap-1">
           <div className="flex-1 flex flex-col">
             <p className="text-white font-medium text-[16px]">
-              <span className="blue-text-gradient">@</span> {name}
+              <span className="blue-text-gradient">@</span>{" "}
+              <a 
+                href={linkedin} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:underline text-[#915EFF]"
+              >
+                {name}
+              </a>
             </p>
             <p className="mt-1 text-secondary text-[12px]">
               {designation} of {company}
