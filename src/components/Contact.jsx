@@ -6,16 +6,22 @@ import { EarthCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 
-const FORMSUBMIT_URL = import.meta.env.VITE_FORMSUBMIT_URL;
+const FORMSPREE_URL = import.meta.env.VITE_FORMSPREE_URL;
 
 const Contact = () => {
   const formRef = useRef();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({ show: false, type: "", text: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const showStatus = (type, text) => {
+    setStatus({ show: true, type, text });
+    setTimeout(() => setStatus({ show: false, type: "", text: "" }), 3000);
   };
 
   const handleSubmit = async (e) => {
@@ -23,43 +29,21 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(FORMSUBMIT_URL, {
+      const res = await fetch(FORMSPREE_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          // Your form fields
-          name: form.name,
-          email: form.email,
-          message: form.message,
-
-          // Nice-to-haves for FormSubmit
-          _subject: "New message from portfolio",
-          _template: "table",     // pretty email layout
-          _captcha: "false",      // disable captcha for smoother UX
-          _replyto: form.email,   // makes Reply-To your user's email
-          _honey: "",             // honeypot: bots that fill this get blocked
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
 
-      const data = await res.json();
-      console.log("FormSubmit response:", data);
-
       if (res.ok) {
-        alert("Thanks! Your message has been sent.");
+        showStatus("success", "Message sent successfully!");
         setForm({ name: "", email: "", message: "" });
       } else {
-        // Common first-time case: email not verified yet
-        alert(
-          data.message ||
-            "Something went wrong. If this is your first submission, check your inbox for a FormSubmit verification email."
-        );
+        showStatus("error", "Failed to send message. Try again later.");
       }
     } catch (err) {
       console.error(err);
-      alert("Network error. Please try again.");
+      showStatus("error", "Network error. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -74,7 +58,7 @@ const Contact = () => {
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact.</h3>
 
-        <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
+        <form ref={formRef} onSubmit={handleSubmit} className="mt-8 flex flex-col gap-8">
           <label className="flex flex-col">
             <span className="text-white font-medium mb-4">Your Name</span>
             <input
@@ -114,12 +98,26 @@ const Contact = () => {
             />
           </label>
 
-          <button
-            type="submit"
-            className="bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary"
-          >
-            {loading ? "Sending..." : "Send"}
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              type="submit"
+              className="bg-tertiary py-3 px-8 rounded-xl outline-none text-white font-bold shadow-md shadow-primary"
+            >
+              {loading ? "Sending..." : "Send"}
+            </button>
+
+            {status.show && (
+              <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`px-3 py-2 rounded-lg text-white text-sm font-medium ${
+                  status.type === "success" ? "bg-green-500" : "bg-red-500"
+                }`}
+              >
+                {status.text}
+              </motion.div>
+            )}
+          </div>
         </form>
       </motion.div>
 
