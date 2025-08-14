@@ -6,8 +6,7 @@ import { EarthCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 
-const tokenParts = ["4146d9d7", "04b20df4", "eaaa94a4", "2a98ce41"];
-const FORMSUBMIT_URL = `https://formsubmit.co/ajax/${tokenParts.join("")}`;
+const FORMSUBMIT_URL = import.meta.env.VITE_FORMSUBMIT_URL;
 
 const Contact = () => {
   const formRef = useRef();
@@ -31,14 +30,17 @@ const Contact = () => {
           Accept: "application/json",
         },
         body: JSON.stringify({
+          // Your form fields
           name: form.name,
           email: form.email,
           message: form.message,
+
+          // Nice-to-haves for FormSubmit
           _subject: "New message from portfolio",
-          _template: "table",
-          _captcha: "false",
-          _replyto: form.email,
-          _honey: "",
+          _template: "table",     // pretty email layout
+          _captcha: "false",      // disable captcha for smoother UX
+          _replyto: form.email,   // makes Reply-To your user's email
+          _honey: "",             // honeypot: bots that fill this get blocked
         }),
       });
 
@@ -49,6 +51,7 @@ const Contact = () => {
         alert("Thanks! Your message has been sent.");
         setForm({ name: "", email: "", message: "" });
       } else {
+        // Common first-time case: email not verified yet
         alert(
           data.message ||
             "Something went wrong. If this is your first submission, check your inbox for a FormSubmit verification email."
