@@ -26,7 +26,7 @@ const Computers = ({ isMobile }) => {
       <primitive
         object={robot.scene}
         scale={isMobile ? 2.5 : 3.4}
-        position={isMobile ? [0, -1.5, 0] : [-0.05, -1.9, 0]}
+        position={isMobile ? [0, -1.2, 0] : [-0.05, -1.6, 0]} // moved robot closer to text
         rotation={isMobile ? [0, 0, 0] : [0, Math.PI / 8, 0]}
       />
     </mesh>
@@ -37,6 +37,7 @@ const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
   useEffect(() => {
+    // Check screen size and update state on resize
     const mediaQuery = window.matchMedia("(max-width: 500px)");
     const handleMediaQueryChange = (event) => {
       setIsMobile(event.matches);
@@ -63,8 +64,10 @@ const ComputersCanvas = () => {
         <OrbitControls
           enableZoom={false}
           enableRotate={!isMobile} // Disable rotation on mobile
+          enablePan={!isMobile} // Disable panning ONLY on mobile so scroll works
           maxPolarAngle={Math.PI / 2.2}
           minPolarAngle={Math.PI / 2.5}
+          touchAction={isMobile ? "auto" : "none"} // Allow native scroll on mobile
         />
         <Computers isMobile={isMobile} />
       </Suspense>
