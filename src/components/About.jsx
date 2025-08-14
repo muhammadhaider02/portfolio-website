@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { Tilt } from "react-tilt";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -105,7 +105,8 @@ const About = () => {
   );
 
   return (
-    <>
+    // Mobile-only top margin to fix overlap, no effect on laptop
+    <div className="mt-12 sm:mt-0">
       <div ref={headingRef}>
         <p className={styles.sectionSubText}>Introduction</p>
         <h2 className={styles.sectionHeadText}>Overview.</h2>
@@ -127,7 +128,7 @@ const About = () => {
           <ServiceCard key={service.title} index={index} {...service} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
