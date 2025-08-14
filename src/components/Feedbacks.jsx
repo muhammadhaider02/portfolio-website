@@ -50,7 +50,7 @@ const FeedbackCard = ({ index, testimonial, name, designation, company, image, l
         <div className="mt-7 flex justify-between items-center gap-1">
           <div className="flex-1 flex flex-col">
             <p className="text-white font-medium text-[16px]">
-              <span className="blue-text-gradient">@</span>{" "}
+            <span className="text-[#915EFF]">@</span>{" "}
               <a 
                 href={linkedin} 
                 target="_blank" 
