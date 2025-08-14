@@ -18,20 +18,18 @@ const Hero = () => {
 
         <div className="mt-28 md:mt-5 lg:5">
           <h1 className={`${styles.heroHeadText} text-white`}>
-            Hi, I'm <span className='text-[#915EFF]'>Huzaif</span>
+            Hi, I'm <span className='text-[#915EFF]'>Haider</span>
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-            I develop modern, user <br/>
-            interfaces and web applications
+            I make AI that does the boring work <br/>
+            so you can focus on the fun stuff
           </p>
         </div>
       </div>
 
       <ComputersCanvas />
-
-      
-
-      <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
+    
+      <div className='absolute xs:bottom-24 bottom-46 w-full flex justify-center items-center'>
         <a href='#about'>
           <div className='w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
             <motion.div

@@ -129,7 +129,11 @@ const Works = () => {
 
       <div className="w-full flex">
         <p className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]">
-          Following projects showcase my skills and experience through real-world examples of my work. Each project is briefly described with links to code repositories and live demos. It reflects my ability to solve complex problems, work with different technologies, and manage projects effectively.
+        The following projects showcase my expertise in AI, Machine Learning, and workflow automation through real-world, 
+        high-performance applications. They reflect my ability to engineer scalable ML pipelines, 
+        leverage distributed computing and GPU acceleration, and integrate advanced models into production-ready systems. 
+        From real-time data processing to intelligent automation, 
+        each project is built to deliver measurable results and solve practical challenges.
         </p>
       </div>
 

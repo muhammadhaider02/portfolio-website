@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Tilt } from "react-tilt";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -29,19 +29,55 @@ const useGsap = (elementRef, animation, delay = 0) => {
   }, [elementRef, animation, delay]);
 };
 
-const ServiceCard = ({ index, title, icon }) => {
+const SkillBar = ({ name, level }) => (
+  <div className="w-full mb-3">
+    <div className="flex justify-between text-white text-sm mb-1">
+      <span>{name}</span>
+      <span>{level}%</span>
+    </div>
+    <div className="w-full h-2 bg-gray-700 rounded-full">
+      <div
+        className="h-2 bg-white rounded-full"
+        style={{ width: `${level}%` }}
+      ></div>
+    </div>
+  </div>
+);
+
+const ServiceCard = ({ index, title, icon, skills }) => {
   const cardRef = useRef(null);
-  useGsap(cardRef, {
-    from: { opacity: 0, y: 100, scale: 0.8 },
-    to: { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power3.out" },
-  }, index * 0.2);
+  const [hovered, setHovered] = React.useState(false);
+
+  useGsap(
+    cardRef,
+    {
+      from: { opacity: 0, y: 100, scale: 0.8 },
+      to: { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" },
+    },
+    index * 0.1
+  );
 
   return (
     <Tilt className="xs:w-[250px] w-full">
-      <div ref={cardRef} className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card">
-        <div className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col">
-          <img src={icon} alt="web-development" className="w-16 h-16 object-contain" />
-          <h3 className="text-white text-[20px] font-bold text-center">{title}</h3>
+      <div
+        ref={cardRef}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
+      >
+        <div className="bg-tertiary rounded-[20px] py-5 px-6 min-h-[280px] flex justify-center items-center flex-col transition-all duration-100 ease-linear">
+          {!hovered ? (
+            <>
+              <i className={`${icon} text-6xl text-white mb-3`}></i>
+              <h3 className="text-white text-[20px] font-bold text-center">{title}</h3>
+            </>
+          ) : (
+            <div className="w-full">
+              {skills.map((skill, idx) => (
+                <SkillBar key={idx} {...skill} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </Tilt>
@@ -59,10 +95,14 @@ const About = () => {
   });
 
   // Paragraph Animation
-  useGsap(paragraphRef, {
-    from: { opacity: 0, y: 50 },
-    to: { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" },
-  }, 0.3);
+  useGsap(
+    paragraphRef,
+    {
+      from: { opacity: 0, y: 50 },
+      to: { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" },
+    },
+    0.3
+  );
 
   return (
     <>
@@ -71,10 +111,15 @@ const About = () => {
         <h2 className={styles.sectionHeadText}>Overview.</h2>
       </div>
 
-      <p ref={paragraphRef} className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]">
-        I'm a skilled software developer with experience in  JavaScript, and expertise in frameworks 
-        like React, Node.js, and Three.js. I'm a quick learner and collaborate closely with clients to create efficient, 
-        scalable, and user-friendly solutions that solve real-world problems. Let's work together to bring your ideas to life!
+      <p
+        ref={paragraphRef}
+        className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
+      >
+        I’m an AI & ML Engineer who builds intelligent, end-to-end systems
+        that work seamlessly in the background so you can focus on innovation.
+        From real-time data pipelines and distributed ML training to workflow automation,
+        I design solutions that save time, scale effortlessly, and deliver measurable results.
+        Let’s turn your ideas into reality.
       </p>
 
       <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-10">
