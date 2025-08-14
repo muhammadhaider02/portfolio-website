@@ -4,7 +4,7 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
 
-const Computers = ({ isMobile }) => {
+const Computers = () => {
   const robot = useGLTF("./robot_ai/scene.glb");
 
   return (
@@ -22,12 +22,12 @@ const Computers = ({ isMobile }) => {
       />
       <pointLight intensity={2} />
 
-      {/* Responsive scaling & positioning */}
+      {/* Robot for desktop */}
       <primitive
         object={robot.scene}
-        scale={isMobile ? 2.5 : 3.4}
-        position={isMobile ? [0, -0.5, 0] : [-0.05, -1.9, 0]} // raised only for mobile
-        rotation={isMobile ? [0, 0, 0] : [0, Math.PI / 8, 0]}
+        scale={3.4}
+        position={[-0.05, -1.9, 0]}
+        rotation={[0, Math.PI / 8, 0]}
       />
     </mesh>
   );
@@ -37,7 +37,6 @@ const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
   useEffect(() => {
-    // Check screen size and update state on resize
     const mediaQuery = window.matchMedia("(max-width: 500px)");
     const handleMediaQueryChange = (event) => {
       setIsMobile(event.matches);
@@ -49,27 +48,27 @@ const ComputersCanvas = () => {
     };
   }, []);
 
+  if (isMobile) return null; // No robot on mobile
+
   return (
     <Canvas
       frameloop="demand"
       shadows
       dpr={[1, 2]}
       camera={{
-        position: isMobile ? [0, 1.8, 8] : [0, 2, 10],
-        fov: isMobile ? 45 : 40,
+        position: [0, 2, 10],
+        fov: 40,
       }}
       gl={{ preserveDrawingBuffer: true }}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           enableZoom={false}
-          enableRotate={!isMobile} // Disable rotation on mobile
-          enablePan={!isMobile} // Disable panning ONLY on mobile so scroll works
           maxPolarAngle={Math.PI / 2.2}
           minPolarAngle={Math.PI / 2.5}
-          touchAction={isMobile ? "auto" : "none"} // Allow native scroll on mobile
+          touchAction="none"
         />
-        <Computers isMobile={isMobile} />
+        <Computers />
       </Suspense>
       <Preload all />
     </Canvas>

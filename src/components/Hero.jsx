@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { styles } from "../styles";
 import { ComputersCanvas } from "./canvas";
 import React, { useState, useEffect } from "react";
@@ -18,7 +17,11 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative w-full h-screen mx-auto">
+    <section
+      className={`relative w-full ${
+        isMobile ? "h-auto pb-10" : "h-screen"
+      } mx-auto`}
+    >
       <div
         className={`absolute inset-0 ${
           isMobile ? "top-[50px]" : "top-[120px]"
@@ -42,11 +45,12 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* 3D Robot */}
-      <ComputersCanvas />
+      {/* 3D Robot - only desktop */}
+      {!isMobile && <ComputersCanvas />}
 
-      {/* Scroll indicator visible only on mobile */}
-      {isMobile && (
+      {/* Scroll indicator - commented out for now */}
+      {/*
+      {!isMobile && (
         <div className="absolute xs:bottom-10 bottom-6 w-full flex justify-center items-center">
           <a href="#about">
             <div className="w-[30px] h-[50px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
@@ -63,6 +67,7 @@ const Hero = () => {
           </a>
         </div>
       )}
+      */}
     </section>
   );
 };
