@@ -29,7 +29,7 @@ const Hero = () => {
       {/* 3D Robot */}
       <ComputersCanvas />
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator hidden */}
       {/* <div className="absolute xs:bottom-10 bottom-6 w-full flex justify-center items-center">
         <a href="#about">
           <div className="w-[30px] h-[50px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">

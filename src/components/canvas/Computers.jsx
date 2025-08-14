@@ -25,9 +25,9 @@ const Computers = ({ isMobile }) => {
       {/* Responsive scaling & positioning */}
       <primitive
         object={robot.scene}
-        scale={isMobile ? 2.4 : 3.4}
+        scale={isMobile ? 2.5 : 3.4}
         position={isMobile ? [0, -1.5, 0] : [-0.05, -1.9, 0]}
-        rotation={[0, Math.PI / 8, 0]}
+        rotation={isMobile ? [0, 0, 0] : [0, Math.PI / 8, 0]}
       />
     </mesh>
   );
@@ -54,7 +54,7 @@ const ComputersCanvas = () => {
       shadows
       dpr={[1, 2]}
       camera={{
-        position: isMobile ? [0, 1.5, 7] : [0, 2, 10],
+        position: isMobile ? [0, 1.8, 8] : [0, 2, 10],
         fov: isMobile ? 45 : 40,
       }}
       gl={{ preserveDrawingBuffer: true }}
@@ -62,6 +62,7 @@ const ComputersCanvas = () => {
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           enableZoom={false}
+          enableRotate={!isMobile} // Disable rotation on mobile
           maxPolarAngle={Math.PI / 2.2}
           minPolarAngle={Math.PI / 2.5}
         />
