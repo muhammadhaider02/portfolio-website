@@ -19,7 +19,7 @@ const Hero = () => {
   return (
     <section
       className={`relative w-full ${
-        isMobile ? "h-auto pb-10 mt-6" : "h-screen"
+        isMobile ? "h-auto pb-10 mt-16" : "h-screen"
       } mx-auto`}
     >
       <div
