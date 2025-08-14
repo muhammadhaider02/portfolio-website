@@ -106,7 +106,7 @@ const About = () => {
 
   return (
     // Mobile-only top margin to fix overlap, no effect on laptop
-    <div className="mt-24 sm:mt-0">
+    <div className="mt-36 sm:mt-0">
       <div ref={headingRef}>
         <p className={styles.sectionSubText}>Introduction</p>
         <h2 className={styles.sectionHeadText}>Overview.</h2>
