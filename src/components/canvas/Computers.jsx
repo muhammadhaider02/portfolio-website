@@ -26,7 +26,7 @@ const Computers = ({ isMobile }) => {
       <primitive
         object={robot.scene}
         scale={isMobile ? 2.5 : 3.4}
-        position={isMobile ? [0, -1.2, 0] : [-0.05, -1.6, 0]} // moved robot closer to text
+        position={isMobile ? [0, -0.5, 0] : [-0.05, -1.9, 0]} // raised only for mobile
         rotation={isMobile ? [0, 0, 0] : [0, Math.PI / 8, 0]}
       />
     </mesh>
